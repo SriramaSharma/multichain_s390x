@@ -1484,7 +1484,11 @@ index ede25ea..4682b5d 100644
  void mc_MapStringIndex::Add(const char* key, int value)
  {
 +if (strcmp(key, "protocolversion")==0 ) {
+<<<<<<< HEAD
 +int aa=10;
+=======
++int aa=10
+>>>>>>> c89271fa0cea6c042bd1e563f8aa7f23e0ccfd72
 +}
      ((std::map<string, int>*)mapObject)->insert(std::pair<string, int>(string(key), value));
  }
@@ -1531,7 +1535,11 @@ index 3ebf0d7..a4e859f 100644
 +	uint64_t src_tmp = src;		// get correct value
 +	src = bswap_64(src_tmp);	// convert to LE format
 +#endif
+<<<<<<< HEAD
 +	memcpy(dest, &src,dest_size);
+=======
++	memcpy(dest, &src_le,dest_size);
+>>>>>>> c89271fa0cea6c042bd1e563f8aa7f23e0ccfd72
 +}
 +void mc_PutLE1(void *dest, void * src,int dest_size)
 +{
