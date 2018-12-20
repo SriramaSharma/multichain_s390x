@@ -16,7 +16,7 @@ yum install patch -y
 ```
 cd /data/
 git clone https://github.com/bitcoin/bitcoin
-cd contrib/ 
+cd bitcoin/contrib/
 ./install_db4.sh `pwd` 
 ```
 
