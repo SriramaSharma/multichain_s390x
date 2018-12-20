@@ -30,7 +30,7 @@ git clone  https://github.com/Multichain/multichain/
 git clone https://github.com/harsha544/multichain_s390x
 cd multichain
 git checkout remotes/origin/2.0-release
-git apply ../multichain_s390x/0001-Applying-BE-changes-on-s390x.patch
+git apply ../multichain_s390x/0005_Dec13_2018_BE_Changes
 ./autogen.sh
 ./configure LDFLAGS="-L/data/bitcoin/contrib/db4/lib/" CPPFLAGS="-I/data/bitcoin/contrib/db4/include"
 make
