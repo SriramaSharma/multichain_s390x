@@ -8,6 +8,7 @@ Install following packages on RHEL 7.X Server
 yum install libtool git wget curl automake boost-devel openssl-devel libevent-devel libstdc++-devel gcc-c++  -y
 yum install qt5-qttools-devel qt5-qtbase-devel protobuf-devel qrencode.s390x  -y
 yum install patch -y 
+yum install nasm -y
 ```
 
 #### Compiling Berkeley DB 4.8 on s390x
