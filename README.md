@@ -14,6 +14,7 @@ yum install patch -y
 #### Compiling GCC 6.1 on s390x
 ---------------
 
+```
 cd $HOME
 wget https://ftp.gnu.org/gnu/gcc/gcc-6.1.0/gcc-6.1.0.tar.gz
 tar -zxvf  gcc-6.1.0.tar.gz
@@ -29,21 +30,24 @@ cd $HOME/gcc-6.1.0_final/bin/
 export PATH=$PWD:$PATH
 cd ../lib64/
 export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
+```
 
 #### Compiling boost 1.58 from source on s390x
 ---------------
 
+```
 cd $HOME/
 wget https://excellmedia.dl.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.tar.gz
 tar -zxf boost_1_58_0.tar.gz
 cd boost_1_58_0
 sudo ./bootstrap.sh —prefix=/usr/
 sudo ./b2 cxxflags="-std=c++0x" —prefix=/usr/ install
-
+```
 
 #### Compiling ninja on s390x
 ---------------
 
+```
 cd $HOME/
 git clone https://github.com/ninja-build/ninja
 cd ninja
@@ -51,16 +55,19 @@ git checkout v1.8.2
 ./configure.py --bootstrap
 export PATH=$PWD:$PATH
 
+```
+
 #### Compiling ninja on s390x
 ---------------
 
+```
 cd $HOME
 git clone https://gn.googlesource.com/gn/
 cd gn
 export CXX=g++
 export CC=gcc
 export AR=ar
-
+```
 NOTE - 
 Delete Identical Code Folding i.e “icf=all” from gn/build/gen.py file LINE Number 299.
 
@@ -79,13 +86,14 @@ index ee4f8e1..51aedf5 100755
  
      cflags.extend([
          '-D_FILE_OFFSET_BITS=64',
- ``` 
-
+``` 
+ 
+```
 python build/gen.py
 ninja -C out 
 cd out/
 export PATH=$PWD:$PATH
-
+```
 
 #### Compiling Berkeley DB 4.8 on s390x
 ---------------
