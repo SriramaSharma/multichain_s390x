@@ -57,7 +57,7 @@ export PATH=$PWD:$PATH
 
 ```
 
-#### Compiling ninja on s390x
+#### Compiling gn on s390x
 ---------------
 
 ```
