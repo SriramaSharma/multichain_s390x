@@ -95,6 +95,25 @@ cd out/
 export PATH=$PWD:$PATH
 ```
 
+#### Compiling Javascript Engine V8 (6.8.290-Branch) on s390x
+---------------
+
+```
+git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
+cd depot_tools
+export PATH=$PATH:$PWD
+fetch v8
+cd v8
+git checkout 6.8.290
+gclient sync
+
+### Apply patches listed https://github.com/harsha544/multichain_s390x/tree/master/V8 ###
+
+gn gen out/s390x.release
+ninja -C out/s390x.release v8 d8
+
+```
+
 #### Compiling Berkeley DB 4.8 on s390x
 ---------------
 
