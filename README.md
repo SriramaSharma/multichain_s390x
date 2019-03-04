@@ -139,3 +139,16 @@ git apply ../multichain_s390x/0007_23_Jan_2019
 ./configure LDFLAGS="-L/data/bitcoin/contrib/db4/lib/" CPPFLAGS="-I/data/bitcoin/contrib/db4/include"
 make
 ```
+
+
+
+### Cscope Usuage
+---------------
+
+cd to the top-level of your project directory and then use a find command to gather up all of the source code files in your project. The following command will recursively find all of the .c, .cpp, .h, and .hpp files in your current directory and any subdirectories, and store the list of these filenames in cscope.files:
+
+```find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" > cscope.files```
+
+Now, pass the list of source files to Cscope, which will build a reference database:
+
+```cscope -q -R -b -i cscope.files```
