@@ -152,3 +152,7 @@ cd to the top-level of your project directory and then use a find command to gat
 Now, pass the list of source files to Cscope, which will build a reference database:
 
 ```cscope -q -R -b -i cscope.files```
+
+Finally, start the Cscope browser:
+
+```cscope -d```
