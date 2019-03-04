@@ -6,7 +6,7 @@
 Install following packages on RHEL 7.X Server
 
 ```sh
-yum install bzip2 binutils libtool git wget curl automake boost-devel openssl-devel libevent-devel libstdc++-devel gcc-c++  -y
+yum install gtk2-devel bzip2 binutils libtool git wget curl automake boost-devel openssl-devel libevent-devel libstdc++-devel gcc-c++  -y
 yum install qt5-qttools-devel qt5-qtbase-devel protobuf-devel qrencode.s390x -y
 yum install patch -y 
 ```
