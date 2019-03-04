@@ -157,3 +157,15 @@ Now, pass the list of source files to Cscope, which will build a reference datab
 Finally, start the Cscope browser:
 
 ```cscope -d```
+
+### GDB References
+---------------
+To Set Breakpoint 
+
+`break wallet/wallet.cpp:3390`
+
+To Print Vaules from Current Frame
+
+https://stackoverflow.com/questions/6261392/printing-all-global-variables-local-variables
+
+
