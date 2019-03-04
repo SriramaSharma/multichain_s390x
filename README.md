@@ -135,7 +135,8 @@ git clone  https://github.com/Multichain/multichain/
 git clone https://github.com/harsha544/multichain_s390x
 cd multichain
 git checkout remotes/origin/2.0-release
-git apply ../multichain_s390x/0007_23_Jan_2019
+git reset --hard 7dc4fa82d01003bf5d286e1ce89fa396dc7ce0c5
+git apply ../multichain_s390x/0008_04_March_2019.patch
 ./autogen.sh
 ./configure LDFLAGS="-L/data/bitcoin/contrib/db4/lib/" CPPFLAGS="-I/data/bitcoin/contrib/db4/include"
 make
