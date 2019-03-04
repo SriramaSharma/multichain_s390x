@@ -102,6 +102,7 @@ export PATH=$PWD:$PATH
 git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
 cd depot_tools
 export PATH=$PATH:$PWD
+export VPYTHON_BYPASS="manually managed python not supported by chrome operations"
 fetch v8
 cd v8
 git checkout 6.8.290
