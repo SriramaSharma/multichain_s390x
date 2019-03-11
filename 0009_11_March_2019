@@ -1,0 +1,272 @@
+From 41a3822f543b8a9a1f2244c3595605332ae26951 Mon Sep 17 00:00:00 2001
+From: Krishna Harsha Voora <krishvoor@in.ibm.com>
+Date: Mon, 11 Mar 2019 12:24:39 -0400
+Subject: [PATCH] Applying BE Changes to Bitcoin/Multichain for s390x arch.
+
+1) Changes specific to s390x added to v8_data_lib.py
+2) Changes specific to s390x added for 2.0-dev - BETA3
+
+Signed-off-by: Krishna Harsha Voora <krishvoor@in.ibm.com>
+---
+ src/compat/byteswap.h |  47 ++++++++++++
+ src/compat/endian.h   | 194 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 241 insertions(+)
+ create mode 100644 src/compat/byteswap.h
+ create mode 100644 src/compat/endian.h
+
+diff --git a/src/compat/byteswap.h b/src/compat/byteswap.h
+new file mode 100644
+index 0000000..899220b
+--- /dev/null
++++ b/src/compat/byteswap.h
+@@ -0,0 +1,47 @@
++// Copyright (c) 2014 The Bitcoin developers
++// Distributed under the MIT software license, see the accompanying
++// file COPYING or http://www.opensource.org/licenses/mit-license.php.
++
++#ifndef BITCOIN_COMPAT_BYTESWAP_H
++#define BITCOIN_COMPAT_BYTESWAP_H
++
++#if defined(HAVE_CONFIG_H)
++#include "config/bitcoin-config.h"
++#endif
++
++#include <stdint.h>
++
++#if defined(HAVE_BYTESWAP_H)
++#include <byteswap.h>
++#endif
++
++#if HAVE_DECL_BSWAP_16 == 0
++inline uint16_t bswap_16(uint16_t x)
++{
++    return (x >> 8) | ((x & 0x00ff) << 8);
++}
++#endif // HAVE_DECL_BSWAP16
++
++#if HAVE_DECL_BSWAP_32 == 0
++inline uint32_t bswap_32(uint32_t x)
++{
++    return (((x & 0xff000000U) >> 24) | ((x & 0x00ff0000U) >>  8) |
++            ((x & 0x0000ff00U) <<  8) | ((x & 0x000000ffU) << 24));
++}
++#endif // HAVE_DECL_BSWAP32
++
++#if HAVE_DECL_BSWAP_64 == 0
++inline uint64_t bswap_64(uint64_t x)
++{
++     return (((x & 0xff00000000000000ull) >> 56)
++          | ((x & 0x00ff000000000000ull) >> 40)
++          | ((x & 0x0000ff0000000000ull) >> 24)
++          | ((x & 0x000000ff00000000ull) >> 8)
++          | ((x & 0x00000000ff000000ull) << 8)
++          | ((x & 0x0000000000ff0000ull) << 24)
++          | ((x & 0x000000000000ff00ull) << 40)
++          | ((x & 0x00000000000000ffull) << 56));
++}
++#endif // HAVE_DECL_BSWAP64
++
++#endif // BITCOIN_COMPAT_BYTESWAP_H
+diff --git a/src/compat/endian.h b/src/compat/endian.h
+new file mode 100644
+index 0000000..4d041d6
+--- /dev/null
++++ b/src/compat/endian.h
+@@ -0,0 +1,194 @@
++// Copyright (c) 2014 The Bitcoin developers
++// Distributed under the MIT software license, see the accompanying
++// file COPYING or http://www.opensource.org/licenses/mit-license.php.
++
++#ifndef BITCOIN_COMPAT_ENDIAN_H
++#define BITCOIN_COMPAT_ENDIAN_H
++
++#if defined(HAVE_CONFIG_H)
++#include "config/bitcoin-config.h"
++#endif
++
++#include <stdint.h>
++
++#include "compat/byteswap.h"
++
++#if defined(HAVE_ENDIAN_H)
++#include <endian.h>
++#endif
++
++#if defined(WORDS_BIGENDIAN)
++
++#if HAVE_DECL_HTOBE16 == 0
++inline uint16_t htobe16(uint16_t host_16bits)
++{
++    return host_16bits;
++}
++#endif // HAVE_DECL_HTOBE16
++
++#if HAVE_DECL_HTOLE16 == 0
++inline uint16_t htole16(uint16_t host_16bits)
++{
++    return bswap_16(host_16bits);
++}
++#endif // HAVE_DECL_HTOLE16
++
++#if HAVE_DECL_BE16TOH == 0
++inline uint16_t be16toh(uint16_t big_endian_16bits)
++{
++    return big_endian_16bits;
++}
++#endif // HAVE_DECL_BE16TOH
++
++#if HAVE_DECL_LE16TOH == 0
++inline uint16_t le16toh(uint16_t little_endian_16bits)
++{
++    return bswap_16(little_endian_16bits);
++}
++#endif // HAVE_DECL_LE16TOH
++
++#if HAVE_DECL_HTOBE32 == 0
++inline uint32_t htobe32(uint32_t host_32bits)
++{
++    return host_32bits;
++}
++#endif // HAVE_DECL_HTOBE32
++
++#if HAVE_DECL_HTOLE32 == 0
++inline uint32_t htole32(uint32_t host_32bits)
++{
++    return bswap_32(host_32bits);
++}
++#endif // HAVE_DECL_HTOLE32
++
++#if HAVE_DECL_BE32TOH == 0
++inline uint32_t be32toh(uint32_t big_endian_32bits)
++{
++    return big_endian_32bits;
++}
++#endif // HAVE_DECL_BE32TOH
++
++#if HAVE_DECL_LE32TOH == 0
++inline uint32_t le32toh(uint32_t little_endian_32bits)
++{
++    return bswap_32(little_endian_32bits);
++}
++#endif // HAVE_DECL_LE32TOH
++
++#if HAVE_DECL_HTOBE64 == 0
++inline uint64_t htobe64(uint64_t host_64bits)
++{
++    return host_64bits;
++}
++#endif // HAVE_DECL_HTOBE64
++
++#if HAVE_DECL_HTOLE64 == 0
++inline uint64_t htole64(uint64_t host_64bits)
++{
++    return bswap_64(host_64bits);
++}
++#endif // HAVE_DECL_HTOLE64
++
++#if HAVE_DECL_BE64TOH == 0
++inline uint64_t be64toh(uint64_t big_endian_64bits)
++{
++    return big_endian_64bits;
++}
++#endif // HAVE_DECL_BE64TOH
++
++#if HAVE_DECL_LE64TOH == 0
++inline uint64_t le64toh(uint64_t little_endian_64bits)
++{
++    return bswap_64(little_endian_64bits);
++}
++#endif // HAVE_DECL_LE64TOH
++
++#else // WORDS_BIGENDIAN
++
++#if HAVE_DECL_HTOBE16 == 0
++inline uint16_t htobe16(uint16_t host_16bits)
++{
++    return bswap_16(host_16bits);
++}
++#endif // HAVE_DECL_HTOBE16
++
++#if HAVE_DECL_HTOLE16 == 0
++inline uint16_t htole16(uint16_t host_16bits)
++{
++    return host_16bits;
++}
++#endif // HAVE_DECL_HTOLE16
++
++#if HAVE_DECL_BE16TOH == 0
++inline uint16_t be16toh(uint16_t big_endian_16bits)
++{
++    return bswap_16(big_endian_16bits);
++}
++#endif // HAVE_DECL_BE16TOH
++
++#if HAVE_DECL_LE16TOH == 0
++inline uint16_t le16toh(uint16_t little_endian_16bits)
++{
++    return little_endian_16bits;
++}
++#endif // HAVE_DECL_LE16TOH
++
++#if HAVE_DECL_HTOBE32 == 0
++inline uint32_t htobe32(uint32_t host_32bits)
++{
++    return bswap_32(host_32bits);
++}
++#endif // HAVE_DECL_HTOBE32
++
++#if HAVE_DECL_HTOLE32 == 0
++inline uint32_t htole32(uint32_t host_32bits)
++{
++    return host_32bits;
++}
++#endif // HAVE_DECL_HTOLE32
++
++#if HAVE_DECL_BE32TOH == 0
++inline uint32_t be32toh(uint32_t big_endian_32bits)
++{
++    return bswap_32(big_endian_32bits);
++}
++#endif // HAVE_DECL_BE32TOH
++
++#if HAVE_DECL_LE32TOH == 0
++inline uint32_t le32toh(uint32_t little_endian_32bits)
++{
++    return little_endian_32bits;
++}
++#endif // HAVE_DECL_LE32TOH
++
++#if HAVE_DECL_HTOBE64 == 0
++inline uint64_t htobe64(uint64_t host_64bits)
++{
++    return bswap_64(host_64bits);
++}
++#endif // HAVE_DECL_HTOBE64
++
++#if HAVE_DECL_HTOLE64 == 0
++inline uint64_t htole64(uint64_t host_64bits)
++{
++    return host_64bits;
++}
++#endif // HAVE_DECL_HTOLE64
++
++#if HAVE_DECL_BE64TOH == 0
++inline uint64_t be64toh(uint64_t big_endian_64bits)
++{
++    return bswap_64(big_endian_64bits);
++}
++#endif // HAVE_DECL_BE64TOH
++
++#if HAVE_DECL_LE64TOH == 0
++inline uint64_t le64toh(uint64_t little_endian_64bits)
++{
++    return little_endian_64bits;
++}
++#endif // HAVE_DECL_LE64TOH
++
++#endif // WORDS_BIGENDIAN
++
++#endif // BITCOIN_COMPAT_ENDIAN_H
+-- 
+1.8.3.1
+
