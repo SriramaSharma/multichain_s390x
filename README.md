@@ -169,4 +169,13 @@ To Print Vaules from Current Frame
 
 https://stackoverflow.com/questions/6261392/printing-all-global-variables-local-variables
 
+### Instructions to push code to local repository
+-----------------
+git clone https://github.com/Multichain/multichain
+git clone https://github.com/harsha544/multichain_s390x
+cd multichain ; git checkout 2.0-dev
+git apply ../multichain_s390x/26_Jun_2019
+git add .
+git commit -s 
+git push
 
