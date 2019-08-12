@@ -1,8 +1,10 @@
-# Instructions to Compile multichain on RHEL/s390x 
+# Instructions to Compile multichain
 ---------------
 
 #### Pre-requisites
----------------
+-------------------
+On RHEL/s390x 
+ 
 Install following packages on RHEL 7.X Server
 
 ```sh
@@ -11,8 +13,16 @@ yum install qt5-qttools-devel qt5-qtbase-devel protobuf-devel qrencode.s390x -y
 yum install patch -y 
 ```
 
+On Ubuntu/s390x
+Install following packages on Ubuntu 18.04 Server
+
+```apt install libgtk2.0-dev bzip2 binutils git wget curl automake libssl-dev libevent1-dev install 
+apt install qttools5-dev* qtbase5-dev-tools libprotobuf-dev qrencode -y```
+
+
 #### Compiling GCC 6.1 on s390x
 ---------------
+On RHEL/s390x
 
 ```
 cd $HOME
@@ -32,9 +42,18 @@ cd ../lib64/
 export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
 ```
 
+On Ubuntu, no need to build gcc as gcc 6.1.x version is part of the repository. So install it directly.
+```
+apt install g++-6 -y
+apt install gcc-6 -y
+update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 10
+update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 10
+apt install libtool
+```
+
 #### Compiling boost 1.58 from source on s390x
 ---------------
-
+On RHEL/s390x
 ```
 cd $HOME/
 wget https://excellmedia.dl.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.tar.gz
@@ -43,7 +62,10 @@ cd boost_1_58_0
 sudo ./bootstrap.sh —prefix=/usr/
 sudo ./b2 cxxflags="-std=c++0x" —prefix=/usr/ install
 ```
-
+On Ubuntu 18.04, the boost libraries are already available as part of the repository. So install the same using below command
+```
+apt install libboost-all-dev -y
+```
 #### Compiling ninja on s390x
 ---------------
 
@@ -69,7 +91,7 @@ export CC=gcc
 export AR=ar
 ```
 NOTE - 
-Delete Identical Code Folding i.e “icf=all” from gn/build/gen.py file LINE Number 299.
+Delete Identical Code Folding i.e “icf=all” from gn/build/gen.py (search with key `Enable identical code-folding` and delete following 2 lines
 
 ``` 
 git diff
